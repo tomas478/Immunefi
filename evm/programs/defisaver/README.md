@@ -20,7 +20,21 @@ Immunefi does **not** list per-contract mainnet addresses on the scope page; use
 
 - **Repo:** https://github.com/defisaver/defisaver-v3-contracts  
 - **Addresses:** [`addresses/mainnet.json`](https://github.com/defisaver/defisaver-v3-contracts/blob/main/addresses/mainnet.json)  
-- **Pinned ref for this scaffold:** `9f9324cb36d465e2e2105ad559be8bb57e4d9c9f` (2026-11-25)
+- **Pinned ref for this scaffold:** `9f9324cb36d465e2e2105ad559be8bb57e4d9c9f` (2026-11-25) — same commit as the git submodule below (update both if Immunefi scope lists a newer ref).
+
+## Vendored sources (git submodule)
+
+| Location | Commit |
+|----------|--------|
+| `evm/lib/defisaver-v3-contracts` | `9f9324cb36d465e2e2105ad559be8bb57e4d9c9f` |
+
+```bash
+# from repo root
+git submodule update --init --recursive
+cd evm && forge build
+```
+
+Import in PoC tests via Foundry remapping `defisaver/` (e.g. `defisaver/interfaces/core/IDFSRegistry.sol`). Read-only fork helpers may use local interfaces; recipe PoCs should prefer submodule types.
 
 Findings called out in [audits](https://github.com/defisaver/defisaver-v3-contracts/tree/main/audits) are **out of scope**. PoC required for all severities.
 
@@ -43,10 +57,11 @@ Recipe/action contracts are registered in `DFSRegistry` by `bytes4` id (see `id`
 cp evm/.env.example evm/.env   # set ETH_RPC_URL
 cd evm
 forge test --match-contract DefiSaverForkBase -vvv
+forge test --match-contract DefiSaverRecipePoC -vvv
 ```
 
 - **Pinned block:** `26_504_176` (~2026-11-27) — stable bytecode/registry state for local PoCs; bump if your narrative needs a specific upgrade block.  
-- **Test file:** `evm/test/defisaver/ForkBase.t.sol` (skips when `ETH_RPC_URL` is unset, same pattern as `test/ForkTemplate.t.sol`).
+- **Test files:** `evm/test/defisaver/ForkBase.t.sol`, `evm/test/defisaver/RecipePoC.t.sol` (skips when `ETH_RPC_URL` is unset, same pattern as `test/ForkTemplate.t.sol`).
 
 ## Hunting notes
 

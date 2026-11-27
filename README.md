@@ -21,11 +21,17 @@ solana/       Anchor workspace — programs/poc, research/raydium|orca/
 
 ## Setup
 
+**Clone (submodules)**
+
+```bash
+git submodule update --init --recursive   # forge-std + defisaver-v3-contracts @ 9f9324cb
+```
+
 **EVM**
 
 ```bash
 cp evm/.env.example evm/.env   # add RPC URLs locally; never commit
-cd evm && forge test
+cd evm && forge build && forge test
 ```
 
 ### DeFi Saver (Ethereum fork PoC)
@@ -36,7 +42,10 @@ Scope notes and pinned deployments: [`evm/programs/defisaver/README.md`](./evm/p
 cp evm/.env.example evm/.env   # ETH_RPC_URL required for fork tests
 cd evm
 forge test --match-contract DefiSaverForkBase -vvv
+forge test --match-contract DefiSaverRecipePoC -vvv   # recipe PoC starter (uses vendored interfaces)
 ```
+
+Vendored in-scope sources: **`evm/lib/defisaver-v3-contracts`** (git submodule, pin `9f9324cb`). Import paths use the `defisaver/` remapping in `evm/foundry.toml`.
 
 Fork baseline block **26_504_176** (documented in the test). Without RPC, fork tests skip and CI still passes.
 

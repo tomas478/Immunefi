@@ -7,7 +7,15 @@ script = "script"
 solc_version = "0.8.24"
 evm_version = "cancun"
 ffi = false
-fs_permissions = [{ access = "read", path = "./programs" }]
+fs_permissions = [
+    { access = "read", path = "./programs" },
+    { access = "read", path = "./lib/defisaver-v3-contracts/addresses" },
+]
+remappings = [
+    "forge-std/=lib/forge-std/src/",
+  # Vendored scope repo (git submodule @ 9f9324cb) — import e.g. defisaver/interfaces/core/IDFSRegistry.sol
+    "defisaver/=lib/defisaver-v3-contracts/contracts/",
+]
 
 # Default fork config — override via env (see evm/.env.example).
 [rpc_endpoints]
