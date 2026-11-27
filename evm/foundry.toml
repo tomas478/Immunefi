@@ -1,0 +1,21 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+solc_version = "0.8.24"
+evm_version = "cancun"
+ffi = false
+fs_permissions = [{ access = "read", path = "./programs" }]
+
+# Default fork config — override via env (see evm/.env.example).
+[rpc_endpoints]
+mainnet = "${ETH_RPC_URL}"
+base = "${BASE_RPC_URL}"
+arbitrum = "${ARBITRUM_RPC_URL}"
+bsc = "${BSC_RPC_URL}"
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
+base = { key = "${BASESCAN_API_KEY}" }

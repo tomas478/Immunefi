@@ -1,0 +1,20 @@
+# EVM / Foundry
+evm/cache/
+evm/out/
+evm/broadcast/
+evm/.env
+evm/programs/**/lib/
+evm/programs/**/vendor/
+
+# Solana / Anchor
+solana/target/
+solana/.anchor/
+solana/node_modules/
+solana/test-ledger/
+solana/research/**/vendor/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.log
