@@ -42,3 +42,5 @@ evm/programs/<slug>/
 4. Document `forge test --match-contract YourPoC -vvv` in the Immunefi report.
 
 See `test/ForkTemplate.t.sol` for block pinning and skip-without-RPC behavior.
+
+**DeFi Saver:** `forge test --match-contract DefiSaverForkBase -vvv` — see `programs/defisaver/README.md` and `test/defisaver/ForkBase.t.sol`.

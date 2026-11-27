@@ -28,6 +28,18 @@ cp evm/.env.example evm/.env   # add RPC URLs locally; never commit
 cd evm && forge test
 ```
 
+### DeFi Saver (Ethereum fork PoC)
+
+Scope notes and pinned deployments: [`evm/programs/defisaver/README.md`](./evm/programs/defisaver/README.md).
+
+```bash
+cp evm/.env.example evm/.env   # ETH_RPC_URL required for fork tests
+cd evm
+forge test --match-contract DefiSaverForkBase -vvv
+```
+
+Fork baseline block **26_504_176** (documented in the test). Without RPC, fork tests skip and CI still passes.
+
 **Solana**
 
 ```bash
