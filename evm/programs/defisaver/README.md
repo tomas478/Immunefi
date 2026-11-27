@@ -58,10 +58,12 @@ cp evm/.env.example evm/.env   # set ETH_RPC_URL
 cd evm
 forge test --match-contract DefiSaverForkBase -vvv
 forge test --match-contract DefiSaverRecipePoC -vvv
+forge test --match-contract DefiSaverRecipeDecode -vvv
 ```
 
 - **Pinned block:** `26_504_176` (~2026-11-27) — stable bytecode/registry state for local PoCs; bump if your narrative needs a specific upgrade block.  
-- **Test files:** `evm/test/defisaver/ForkBase.t.sol`, `evm/test/defisaver/RecipePoC.t.sol` (skips when `ETH_RPC_URL` is unset, same pattern as `test/ForkTemplate.t.sol`).
+- **Test files:** `evm/test/defisaver/ForkBase.t.sol`, `evm/test/defisaver/RecipePoC.t.sol`, `evm/test/defisaver/RecipeDecode.t.sol` (fork-backed cases skip when `ETH_RPC_URL` is unset, same pattern as `test/ForkTemplate.t.sol`).
+- **Recipe decode example:** `RecipeDecode.t.sol` round-trips `StrategyModel.Recipe` ABI fields, inspects `executeRecipe` selector layout, and resolves the in-scope `SendToken` action via `DFSRegistry` on fork (read-only).
 
 ## Hunting notes
 
