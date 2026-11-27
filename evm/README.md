@@ -6,12 +6,23 @@ Foundry workspace for Immunefi smart-contract PoCs (primary stack: **Origin Prot
 
 ```bash
 # From repo root
+git submodule update --init --recursive   # forge-std + defisaver-v3-contracts
+
 cp evm/.env.example evm/.env   # add RPC URLs locally — never commit
 
 cd evm
-forge install                    # forge-std already vendored under lib/
+forge build
 forge test
 ```
+
+### Vendored protocol sources (`lib/`)
+
+| Path | Pin | Notes |
+|------|-----|--------|
+| `lib/forge-std` | submodule | Foundry test utils |
+| `lib/defisaver-v3-contracts` | `9f9324cb` | [defisaver-v3-contracts](https://github.com/defisaver/defisaver-v3-contracts) — Immunefi scope tree (excl. `mocks/`, `views/`) |
+
+Remapping: `defisaver/` → `lib/defisaver-v3-contracts/contracts/` (see `foundry.toml`).
 
 With `ETH_RPC_URL` in `evm/.env`, fork tests run against a **pinned mainnet block**. Without RPC, fork tests skip and CI still passes (`test/Smoke.t.sol` always runs).
 
@@ -44,3 +55,5 @@ evm/programs/<slug>/
 See `test/ForkTemplate.t.sol` for block pinning and skip-without-RPC behavior.
 
 **DeFi Saver:** `forge test --match-contract DefiSaverForkBase -vvv` — see `programs/defisaver/README.md` and `test/defisaver/ForkBase.t.sol`.
+
+**DeFi Saver recipe starter:** `forge test --match-contract DefiSaverRecipePoC -vvv` — `test/defisaver/RecipePoC.t.sol` imports interfaces from the submodule.
